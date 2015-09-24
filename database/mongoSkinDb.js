@@ -1,11 +1,14 @@
 /**
  * Implementation for mongo + mongoSkin
  */
+var db;
 
-var mongoSkin = require('mongoskin');
-var db = mongoSkin.db('mongodb://@localhost/micro-rest-service?auto_reconnect=true');
+function init() {
+    var mongoSkin = require('mongoskin');
+    db = mongoSkin.db('mongodb://@localhost/micro-rest-service?auto_reconnect=true');
+    db.bind('contacts');
+}
 
-db.bind('contacts');
 
 var contacts = {
     find: function (callback) {
@@ -20,6 +23,7 @@ var contacts = {
 };
 
 var dataStore = {
+    init: init,
     contacts: contacts
 };
 

@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var dataStore = require('../database/mongoSkinDb');
+dataStore.init();
 var contactStore = dataStore.contacts;
 
 /* GET users listing. */
-router.get('/contacts', function(req, res, next) {
+router.get('/', function(req, res, next) {
     console.log('find contacts');
     contactStore.find(function(err,result){
         console.log('contact results: ',result);
@@ -17,7 +18,7 @@ router.get('/contacts', function(req, res, next) {
   
 });
 
-router.get('/contacts/insert', function(req, res, next) {
+router.get('/insert', function(req, res, next) {
     
     var contact = {
         firstname: req.query.firstname,
