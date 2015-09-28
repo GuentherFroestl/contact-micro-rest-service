@@ -23,8 +23,14 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.param('collection', function(req, res, next, collectionName){
+  req.collectionName = collectionName;
+    console.log('collectionName: ',collectionName);
+  return next()
+});
+
 app.use('/',index);
-app.use('/contacts',contacts);
+app.use('/:collection',contacts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -6,21 +6,21 @@ var db;
 function init() {
     var mongoSkin = require('mongoskin');
     db = mongoSkin.db('mongodb://@localhost/micro-rest-service?auto_reconnect=true');
-    db.bind('contacts');
+
 }
 
 
 var contacts = {
-    find: function (callback) {
-        db.contacts.findItems(callback);
+    find: function (collectionName,callback) {
+        db.bind(collectionName);
+        db[collectionName].findItems(callback);
     },
-    save: function (contact) {
-        db.contacts.save(contact, {w: 1}, function (err, result) {
-            console.log('save result', result);
-        }
-        );
+    save: function (collectionName,objectToSave,callback) {
+        db.bind(collectionName);
+        db[collectionName].save(objectToSave, {w: 1}, callback);
     }
 };
+
 
 var dataStore = {
     init: init,
