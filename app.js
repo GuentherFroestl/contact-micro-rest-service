@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var contacts = require('./routes/contacts');
+var crudRouter = require('./routes/crud');
 
 var app = express();
 
@@ -30,7 +30,7 @@ app.param('collection', function(req, res, next, collectionName){
 });
 
 app.use('/',index);
-app.use('/:collection',contacts);
+app.use('/:collection',crudRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
